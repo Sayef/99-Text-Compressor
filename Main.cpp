@@ -7,29 +7,30 @@
 
 using namespace std;
 
-int I_glob = 0, FLAG = 1;    //eita use kora hoise struct tree_represen s[] er index er jonno.
+int I_glob = 0, FLAG = 1;    //used for handling struct tree_represen s[] index.
 
 char C_A_compress_file_name[30], input_txt[50], compress_txt[50], key_txt[50];  // jei file compress korte hobe sei file name
 int I_com_file_size = 0;
 
-struct tree_represen    //eita use kora hoise tree representation (0 or 1) korar jonno
+struct tree_represen    //used for tree representation (0 or 1) 
 {
     int I_max_frequen;
     char C_prechar;
     string STR_encode;
 }s[256], s1;
 
-struct S_mytree    //eita use kora hoise binary tree er node gulo create korar jonno
+struct S_mytree    //used for creating binary nodes
 {
     int I_max;
     char C_charasci;
     S_mytree *S_P_left, *S_P_right, *S_P_mid;
 };
 
-/* ei function er kaj holo proti ti character
- er jonno node toiri kora and node gulo
- eder frequency onujai sort kora.
- jar man kom se uporer dike thakbe*/
+	/*	F_insertsort is used for creating node 
+		for every character and sorting them in 
+		increasing order accroding to their frequency
+	*/
+
 
 void F_insertsort(S_mytree *S_M_head, int max, int asci)
 {
@@ -52,8 +53,9 @@ void F_insertsort(S_mytree *S_M_head, int max, int asci)
     return ;
 }
 
-/* ei function er kaj holo binary node gulo
- nie single node er jotha sthane sort kore boshano */
+		/* F_insert is used for setting nodes to the exact 
+		   position of it in single node for sorting 
+		*/
 
 void F_insert(S_mytree *S_M_head, S_mytree *S_new)
 {
@@ -71,7 +73,7 @@ void F_insert(S_mytree *S_M_head, S_mytree *S_new)
     return ;
 }
 
-/* ei function er kaj holo ekti binary tree create kora*/
+// F_create_tree creates a binary tree
 
 void F_create_tree(S_mytree *S_M_head)
 {
@@ -94,9 +96,10 @@ void F_create_tree(S_mytree *S_M_head)
     }
 }
 
-/* ei function er kaj holo binary tree traversal kore
-0 or 1 ber kore dewa.
- ar ekhane left mane 0 & right mane 1 */
+		/*	 F_tree_traversal finds the sequence of 0 or 1 
+			travarsing binary tree and left means 0, right means 1  
+		*/
+
 
 void F_tree_traversal(S_mytree *top, string STR_temp)
 {
@@ -112,13 +115,11 @@ void F_tree_traversal(S_mytree *top, string STR_temp)
     F_tree_traversal(top->S_P_right, STR_temp + "1");
 }
 
-map< string , int > Map;       //eita holo binary to desimal convert korar jonno
+map< string , int > Map;       //used for bunary to decimal conversion
 
-map< int , string > Map2, Map1;  /*Map1 use for reverse of Map and Map2 use kora hoise
-								 F_stru_re_cre te ekhane binary representasion rakha hoise*/
+map< int , string > Map2, Map1;  /*Map1 used for reverse of Map and Map2 use for stroing  binary reperentation in  F_stru_re_cre*/
 
-/*ei function er kaj holo 0 - 255 porjonto 8 bits kore
-protitir binary number memory kora*/
+/* bin_con_des used for memorizing every binary number from 0 - 255 with 8 bits */
 
 void bin_con_des()
 {
@@ -144,8 +145,7 @@ void bin_con_des()
 	return;
 }
 
-/*eita structure theke Map2 te
-binary representation gula nia ashe*/
+/*F_stru_re_crea extracts binary representation from Map2 */
 
 void F_stru_re_crea()
 {
@@ -206,7 +206,7 @@ void F_compress()
 	return ;
 }
 
-// file decompress korar main function
+// main function for file decompression
 
 void F_decompress(S_mytree *S_M_head)
 {
